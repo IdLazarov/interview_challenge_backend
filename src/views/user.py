@@ -1,18 +1,26 @@
 from flask import Blueprint
 from flask import jsonify, make_response, request
-from presenter.user import get_users, add_user
+from presenter.user import get_users, add_user, get_user
 import json
 
 user_views = Blueprint("user", __name__)
 
 
 @user_views.route('/users', methods=['GET'])
-def get_users():
+def get_all_users():
     users = get_users()
     r = []
     for user in users:
         r.append(user.__dict__)
     return make_response(jsonify({"users": r}), 200)
+
+
+@user_views.route('/user/<int:id>', methods=['GET'])
+def get_user_by_id(id):
+    user = get_user(id)
+    print(user)
+    return make_response(jsonify({"user": user}), 200)
+
 
 @user_views.route('/user', methods=['POST'])
 def add_user_view():

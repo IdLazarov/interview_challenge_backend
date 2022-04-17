@@ -3,7 +3,6 @@ from typing import List
 from repository import user
 
 
-
 def get_users() -> List[User]:
     json_users = user.get_users()
     users = []
@@ -13,8 +12,13 @@ def get_users() -> List[User]:
     return users
 
 
+def get_user(id):
+    json_user = user.get_user(id)
+
+    return json_user
+
+
 def add_user(user_name):
     user_id = len(user.get_users()) + 1
     new_user = User(user_id, user_name)
     user.add_user(new_user)
-
